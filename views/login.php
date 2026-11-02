@@ -1,8 +1,5 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-session_start();
-
+require_once __DIR__ . '/../core/core.php';
 require_once __DIR__ . '/../controllers/CustomerController.php';
 
 $error = '';
@@ -12,45 +9,81 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $controller->login($_POST);
 
     if ($result['success']) {
-        header('Location: ../index.php');
+        header('Location: ' . app_url('index.php'));
         exit;
     } else {
         $error = $result['error'];
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Shoppn</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <title>Sign In — shoppn</title>
+    <link rel="stylesheet" href="<?php echo app_url('css/style.css'); ?>">
 </head>
 <body>
 
-    <h1>Login to Shoppn</h1>
+    <div class="auth-wrapper">
+        <div class="auth-card">
 
-    <?php if ($error !== ''): ?>
-        <p style="color: red;">
-            <?php echo htmlspecialchars($error); ?>
-        </p>
-    <?php endif; ?>
+            <div class="auth-header">
+                <a href="<?php echo app_url('index.php'); ?>" class="brand-logo" style="font-size: 1.5rem; margin-bottom: 1rem;">
+                    shoppn<span>.</span>
+                </a>
+                <h1>Welcome back</h1>
+                <p>Enter your email and password to access your account</p>
+            </div>
 
-    <form method="POST" action="">
+            <?php if ($error !== ''): ?>
+                <div class="alert alert-error">
+                    <span><?php echo htmlspecialchars($error); ?></span>
+                </div>
+            <?php endif; ?>
 
-        <label>Email</label>
-        <input type="email" name="email" required>
+            <div id="login-js-error" class="alert alert-error" style="display: none;"></div>
 
-        <label>Password</label>
-        <input type="password" name="password" required>
+            <form id="login-form" method="POST" action="">
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input 
+                        id="email"
+                        type="email" 
+                        name="email" 
+                        placeholder="you@example.com"
+                        required 
+                        autofocus
+                    >
+                </div>
 
-        <button type="submit">Login</button>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input 
+                        id="password"
+                        type="password" 
+                        name="password" 
+                        placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+                        required
+                    >
+                </div>
 
-    </form>
+                <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1.5rem;">
+                    Sign In
+                </button>
+            </form>
 
-    <p>Don't have an account? <a href="register.php">Register here</a></p>
+            <div class="auth-footer">
+                Don't have an account? 
+                <a href="<?php echo app_url('views/register.php'); ?>" style="font-weight: 500;">
+                    Create account
+                </a>
+            </div>
 
+        </div>
+    </div>
+
+    <script src="<?php echo app_url('js/validate.js'); ?>"></script>
 </body>
 </html>

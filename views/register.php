@@ -1,6 +1,5 @@
 <?php
-session_start();
-
+require_once __DIR__ . '/../core/core.php';
 require_once __DIR__ . '/../controllers/CustomerController.php';
 
 $error = '';
@@ -17,56 +16,136 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register | Shoppn</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <title>Create Account — shoppn</title>
+    <link rel="stylesheet" href="<?php echo app_url('css/style.css'); ?>">
 </head>
 <body>
 
-    <h1>Create Your Shoppn Account</h1>
+    <div class="auth-wrapper">
+        <div class="auth-card" style="max-width: 500px;">
 
-    <?php if ($error !== ''): ?>
-        <p style="color: red;">
-            <?php echo htmlspecialchars($error); ?>
-        </p>
-    <?php endif; ?>
+            <div class="auth-header">
+                <a href="<?php echo app_url('index.php'); ?>" class="brand-logo" style="font-size: 1.5rem; margin-bottom: 1rem;">
+                    shoppn<span>.</span>
+                </a>
+                <h1>Create an account</h1>
+                <p>Join shoppn to create your account</p>
+            </div>
 
-    <?php if ($success !== ''): ?>
-        <p style="color: green;">
-            <?php echo htmlspecialchars($success); ?>
-        </p>
-    <?php endif; ?>
+            <?php if ($error !== ''): ?>
+                <div class="alert alert-error">
+                    <span><?php echo htmlspecialchars($error); ?></span>
+                </div>
+            <?php endif; ?>
 
-    <form method="POST" action="">
+            <?php if ($success !== ''): ?>
+                <div class="alert alert-success">
+                    <span>
+                        <?php echo htmlspecialchars($success); ?> 
+                        <a href="<?php echo app_url('views/login.php'); ?>" style="font-weight: 600; text-decoration: underline; margin-left: 0.5rem;">
+                            Sign in now &rarr;
+                        </a>
+                    </span>
+                </div>
+            <?php endif; ?>
 
-        <label>Full Name</label>
-        <input type="text" name="name" required>
+            <div id="register-js-error" class="alert alert-error" style="display: none;"></div>
 
-        <label>Email</label>
-        <input type="email" name="email" required>
+            <form id="register-form" method="POST" action="">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input 
+                        id="name"
+                        type="text" 
+                        name="name" 
+                        placeholder="Kwame Mensah"
+                        required 
+                        value="<?php echo htmlspecialchars($_POST['name'] ?? ''); ?>"
+                    >
+                </div>
 
-        <label>Password</label>
-        <input type="password" name="password" required>
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input 
+                        id="email"
+                        type="email" 
+                        name="email" 
+                        placeholder="you@example.com"
+                        required 
+                        value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>"
+                    >
+                </div>
 
-        <label>Country</label>
-        <input type="text" name="country" required>
+                <div class="form-group">
+                    <label for="password">Password (at least 8 characters)</label>
+                    <input 
+                        id="password"
+                        type="password" 
+                        name="password" 
+                        placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+                        minlength="8"
+                        required
+                    >
+                </div>
 
-        <label>City</label>
-        <input type="text" name="city" required>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label for="country">Country</label>
+                        <input 
+                            id="country"
+                            type="text" 
+                            name="country" 
+                            placeholder="Ghana"
+                            required 
+                            value="<?php echo htmlspecialchars($_POST['country'] ?? ''); ?>"
+                        >
+                    </div>
 
-        <label>Contact</label>
-        <input type="text" name="contact" required>
+                    <div class="form-group">
+                        <label for="city">City</label>
+                        <input 
+                            id="city"
+                            type="text" 
+                            name="city" 
+                            placeholder="Accra"
+                            required 
+                            value="<?php echo htmlspecialchars($_POST['city'] ?? ''); ?>"
+                        >
+                    </div>
+                </div>
 
-        <button type="submit">Register</button>
+                <div class="form-group">
+                    <label for="contact">Contact Number</label>
+                    <input 
+                        id="contact"
+                        type="text" 
+                        name="contact" 
+                        placeholder="+233 24 000 0000"
+                        required 
+                        value="<?php echo htmlspecialchars($_POST['contact'] ?? ''); ?>"
+                    >
+                </div>
 
-    </form>
+                <button type="submit" class="btn btn-primary btn-block" style="margin-top: 1.5rem;">
+                    Create Account
+                </button>
+            </form>
 
-    <p>Already have an account? <a href="login.php">Login here</a></p>
+            <div class="auth-footer">
+                Already have an account? 
+                <a href="<?php echo app_url('views/login.php'); ?>" style="font-weight: 500;">
+                    Sign in
+                </a>
+            </div>
 
+        </div>
+    </div>
+
+    <script src="<?php echo app_url('js/validate.js'); ?>"></script>
 </body>
 </html>
