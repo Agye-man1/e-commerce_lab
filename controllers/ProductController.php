@@ -46,5 +46,56 @@ class ProductController {
         return $this->productModel->updateCategory((int) $id, $name);
     }
 
+    // ── Products ────────────────────────────────────────────
+
+    public function addProduct($cat, $brand, $title, $price, $desc, $image_filename, $keywords) {
+        return $this->productModel->addProduct(
+            (int) $cat,
+            (int) $brand,
+            $title,
+            $price,
+            $desc,
+            $image_filename,
+            $keywords
+        );
+    }
+
+    public function updateProduct($id, $cat, $brand, $title, $price, $desc, $image_filename, $keywords) {
+        return $this->productModel->updateProduct(
+            (int) $id,
+            (int) $cat,
+            (int) $brand,
+            $title,
+            $price,
+            $desc,
+            $image_filename,
+            $keywords
+        );
+    }
+
+    public function getProductById($id) {
+        return $this->productModel->getProductById((int) $id);
+    }
+
+    public function getAllProducts() {
+        return $this->productModel->getAllProducts();
+    }
+
+    public function getFeaturedProducts($limit = 6) {
+        return $this->productModel->getFeaturedProducts((int) $limit);
+    }
+
+    public function getProductsByCategory($cat_id) {
+        return $this->productModel->getProductsByCategory((int) $cat_id);
+    }
+
+    public function getProductsByBrand($brand_id) {
+        return $this->productModel->getProductsByBrand((int) $brand_id);
+    }
+
+    public function searchProducts($query) {
+        return $this->productModel->searchProducts($query);
+    }
+
 }
 ?>

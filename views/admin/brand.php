@@ -7,6 +7,7 @@ require_once __DIR__ . '/../../controllers/ProductController.php';
 $controller = new ProductController();
 $brands = $controller->getAllBrands();
 $categories = $controller->getAllCategories();
+$products = $controller->getAllProducts();
 
 $editBrand = null;
 $editId = (int) ($_GET['edit_id'] ?? 0);
@@ -50,6 +51,10 @@ $formAction = $editBrand
             <a href="<?php echo app_url('views/admin/category.php'); ?>" class="admin-tab">
                 <span>Categories</span>
                 <span class="count"><?php echo count($categories); ?></span>
+            </a>
+            <a href="<?php echo app_url('views/admin/product.php'); ?>" class="admin-tab">
+                <span>Products</span>
+                <span class="count"><?php echo count($products); ?></span>
             </a>
         </nav>
 

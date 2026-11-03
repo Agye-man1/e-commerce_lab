@@ -100,6 +100,54 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // ── Product Form Validation ─────────────────────────────────────────────
+    const productForm = document.getElementById('product-form');
+    if (productForm) {
+        productForm.addEventListener('submit', function (e) {
+            const title = document.getElementById('product_title');
+            const price = document.getElementById('product_price');
+            const cat = document.getElementById('product_cat');
+            const brand = document.getElementById('product_brand');
+            const image = document.getElementById('product_image');
+            const errorContainer = document.getElementById('product-js-error');
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+            const maxSize = 2 * 1024 * 1024;
+            let errorMsg = '';
+
+            if (!title || title.value.trim().length < 2) {
+                errorMsg = 'Product title must be at least 2 characters.';
+            } else if (!price || price.value === '' || Number(price.value) < 0) {
+                errorMsg = 'Please enter a valid price.';
+            } else if (!cat || cat.value === '') {
+                errorMsg = 'Please select a category.';
+            } else if (!brand || brand.value === '') {
+                errorMsg = 'Please select a brand.';
+            } else if (image && image.files.length > 0) {
+                const file = image.files[0];
+                if (allowedTypes.indexOf(file.type) === -1) {
+                    errorMsg = 'Image must be JPEG, PNG, GIF, or WebP.';
+                } else if (file.size > maxSize) {
+                    errorMsg = 'Image must be 2MB or smaller.';
+                }
+            } else if (image && image.required && image.files.length === 0) {
+                errorMsg = 'Please upload a product image.';
+            }
+
+            if (errorMsg) {
+                e.preventDefault();
+                if (errorContainer) {
+                    errorContainer.textContent = errorMsg;
+                    errorContainer.style.display = 'block';
+                }
+                return false;
+            }
+
+            if (errorContainer) {
+                errorContainer.style.display = 'none';
+            }
+        });
+    }
+
     // ── Register Form Validation ────────────────────────────────────────────
     const registerForm = document.getElementById('register-form');
     if (registerForm) {
@@ -194,7 +242,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
 
-            const countBadge = document.getElementById('item-count') || document.getElementById('brand-count') || document.getElementById('category-count');
+            const countBadge = document.getElementById('item-count') || document.getElementById('brand-count') || document.getElementById('category-count') || document.getElementById('product-count');
             if (countBadge) {
                 countBadge.textContent = visibleCount;
             }
