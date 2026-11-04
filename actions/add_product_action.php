@@ -44,7 +44,7 @@ if (!$controller->getCategoryById($cat) || !$controller->getBrandById($brand)) {
     redirect(app_url('views/admin/product.php'));
 }
 
-$allowed = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+$allowed = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/avif'];
 $maxSize = 2 * 1024 * 1024;
 
 if (!isset($_FILES['product_image']) || $_FILES['product_image']['error'] !== UPLOAD_ERR_OK) {
@@ -53,7 +53,7 @@ if (!isset($_FILES['product_image']) || $_FILES['product_image']['error'] !== UP
 }
 
 if (!in_array($_FILES['product_image']['type'], $allowed, true)) {
-    $_SESSION['error'] = 'Image must be JPEG, PNG, GIF, or WebP.';
+    $_SESSION['error'] = 'Image must be JPEG, PNG, GIF, WebP, or AVIF.';
     redirect(app_url('views/admin/product.php'));
 }
 

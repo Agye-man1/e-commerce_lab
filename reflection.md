@@ -7,12 +7,11 @@
 
 ## What I Learned
 
-In this lab, I advanced my understanding of the Model-View-Controller (MVC) architecture by building out a complete product catalog, administration system, and a modern sneaker storefront UI inspired by high-end footwear marketplaces. Specifically, I learned:
+In this lab, I advanced my understanding of the Model-View-Controller (MVC) architecture by building out a complete product catalog and administration system. Specifically, I learned:
 1. **Relational Database Queries & JOINs**: How to retrieve products with foreign keys (`product_cat` and `product_brand`) using SQL `INNER JOIN`s to display readable category and brand names alongside product details.
 2. **Secure File Upload Handling**: How to securely handle image uploads in PHP using `$_FILES`, validating file size (≤ 2MB) and MIME types (`image/jpeg`, `image/png`, `image/gif`, `image/webp`) on both the client-side via JavaScript and server-side in PHP, while generating unique filenames (`uniqid()`) to prevent filename collisions.
 3. **Dynamic Filtering & Search Queries**: How to construct dynamic queries using prepared statements and `LIKE ?` with wildcard parameters (`%$query%`) for search functionality, as well as filtering by category (`?cat=N`) or brand (`?brand=N`).
-4. **Modern Storefront UI Architecture**: How to translate a sneaker marketplace reference UI into clean, responsive CSS components—including split hero promotional banners, flash deal countdown badges, category/brand filter pills, rating indicators, and verified stock badges—while maintaining strict MVC boundaries (no database queries in views).
-5. **Environment-Aware URL Routing**: How to build dynamic URL helpers (`app_url()`) that work consistently between local XAMPP and live Apache UserDir environments (`~kofi.agyeman/shoppn/`).
+4. **Environment-Aware URL Routing**: How to build dynamic URL helpers (`app_url()`) that work consistently between local XAMPP and live Apache UserDir environments (`~kofi.agyeman/shoppn/`).
 
 ---
 
@@ -93,8 +92,8 @@ public function getProductById($id) {
 
 I used Antigravity (powered by Gemini) as an AI pair programmer and learning assistant during this lab.
 
-* **How I Used It**: I used the AI to help troubleshoot URL path issues on the university Apache UserDir server, structure file upload validation checks (MIME types, file size limits), implement client-side regex and file validation in `js/validate.js`, translate a modern sneaker store UI design reference into clean vanilla CSS components (split hero, deals countdown row, dynamic filter pills, and product cards), and verify strict MVC compliance across controllers and views.
-* **What I Learned From It**: I learned the importance of defense-in-depth when handling file uploads—never trusting client-side validation alone, validating MIME types server-side, and ensuring upload directories have appropriate write permissions. I also learned how to diagnose network and caching discrepancies when deploying to remote web servers, and how to create clean, reusable CSS utility systems without heavy third-party frameworks.
+* **How I Used It**: I used the AI to help troubleshoot URL path issues on the university Apache UserDir server, structure file upload validation checks (MIME types, file size limits), implement client-side regex and file validation in `js/validate.js`, and design a modern, minimalist interface for the product grid and detail views.
+* **What I Learned From It**: I learned the importance of defense-in-depth when handling file uploads—never trusting client-side validation alone, validating MIME types server-side, and ensuring upload directories have appropriate write permissions. I also learned how to diagnose network and caching discrepancies when deploying to remote web servers.
 
 ---
 

@@ -52,7 +52,7 @@ if (!$controller->getCategoryById($cat) || !$controller->getBrandById($brand)) {
 }
 
 $filename = $existingImage;
-$allowed = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+$allowed = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/avif'];
 $maxSize = 2 * 1024 * 1024;
 
 $newUpload = isset($_FILES['product_image'])
@@ -65,7 +65,7 @@ if ($newUpload) {
     }
 
     if (!in_array($_FILES['product_image']['type'], $allowed, true)) {
-        $_SESSION['error'] = 'Image must be JPEG, PNG, GIF, or WebP.';
+        $_SESSION['error'] = 'Image must be JPEG, PNG, GIF, WebP, or AVIF.';
         redirect(app_url('views/admin/product.php?edit_id=' . $id));
     }
 

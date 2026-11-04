@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const brand = document.getElementById('product_brand');
             const image = document.getElementById('product_image');
             const errorContainer = document.getElementById('product-js-error');
-            const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'image/avif'];
             const maxSize = 2 * 1024 * 1024;
             let errorMsg = '';
 
@@ -125,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
             } else if (image && image.files.length > 0) {
                 const file = image.files[0];
                 if (allowedTypes.indexOf(file.type) === -1) {
-                    errorMsg = 'Image must be JPEG, PNG, GIF, or WebP.';
+                    errorMsg = 'Image must be JPEG, PNG, GIF, WebP, or AVIF.';
                 } else if (file.size > maxSize) {
                     errorMsg = 'Image must be 2MB or smaller.';
                 }

@@ -16,7 +16,7 @@ if (!$product) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($product['product_title']); ?> | shoppn</title>
-    <link rel="stylesheet" href="<?php echo app_url('css/style.css?v=2.2'); ?>">
+    <link rel="stylesheet" href="<?php echo app_url('css/style.css?v=2.3'); ?>">
 </head>
 <body>
 
@@ -39,7 +39,7 @@ if (!$product) {
 
         <div class="product-detail-layout">
             <!-- Left: Product Image Card -->
-            <div class="card" style="padding: 2.5rem; display: flex; align-items: center; justify-content: center; background: #ffffff;">
+            <div class="product-detail-image-box">
                 <img
                     class="product-detail-image"
                     src="<?php echo app_url('images/products/' . rawurlencode($product['product_image'] ?? '')); ?>"
@@ -49,29 +49,20 @@ if (!$product) {
 
             <!-- Right: Product Information & Purchase -->
             <div class="card" style="padding: 2.25rem;">
-                <div style="display: flex; gap: 0.5rem; margin-bottom: 0.85rem; flex-wrap: wrap; align-items: center;">
-                    <span class="badge badge-sand">
+                <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap;">
+                    <span class="badge" style="background: var(--bg-muted); color: var(--text-secondary);">
                         <?php echo htmlspecialchars($product['brand_name']); ?>
                     </span>
-                    <span class="badge badge-coral">
+                    <span class="badge" style="background: var(--accent-subtle); color: var(--accent);">
                         <?php echo htmlspecialchars($product['cat_name']); ?>
-                    </span>
-                    <span class="badge" style="background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0;">
-                        &#10003; 100% Verified Authentic
                     </span>
                 </div>
 
-                <h1 style="font-size: 2rem; margin-bottom: 0.5rem; letter-spacing: -0.03em;">
+                <h1 style="font-size: 2rem; margin-bottom: 1rem; letter-spacing: -0.03em;">
                     <?php echo htmlspecialchars($product['product_title']); ?>
                 </h1>
 
-                <div class="rating-row" style="margin-bottom: 1.25rem;">
-                    <span class="rating-star">&#9733;</span>
-                    <strong>4.9</strong>
-                    <span>(128 Verified Reviews) &bull; Official Deadstock Drop</span>
-                </div>
-
-                <div style="font-size: 1.85rem; font-weight: 800; color: var(--text-primary); margin-bottom: 1.5rem; letter-spacing: -0.03em;">
+                <div style="font-size: 1.75rem; font-weight: 700; color: var(--text-primary); margin-bottom: 1.5rem; letter-spacing: -0.02em;">
                     GH&#8373; <?php echo htmlspecialchars(number_format((float) $product['product_price'], 2)); ?>
                 </div>
 

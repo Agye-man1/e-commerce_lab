@@ -29,7 +29,7 @@ $formAction = $editProduct
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Products — shoppn</title>
-    <link rel="stylesheet" href="<?php echo app_url('css/style.css'); ?>">
+    <link rel="stylesheet" href="<?php echo app_url('css/style.css?v=2.3'); ?>">
 </head>
 <body>
 
@@ -201,7 +201,7 @@ $formAction = $editProduct
                             id="product_image"
                             type="file"
                             name="product_image"
-                            accept="image/jpeg,image/png,image/gif,image/webp"
+                            accept="image/jpeg,image/png,image/gif,image/webp,image/avif"
                             <?php echo $editProduct ? '' : 'required'; ?>
                         >
                     </div>
@@ -261,8 +261,18 @@ $formAction = $editProduct
                             <tbody>
                                 <?php foreach ($products as $product): ?>
                                     <tr class="table-row-item">
-                                        <td class="name-cell" style="font-weight: 600;">
-                                            <?php echo htmlspecialchars($product['product_title']); ?>
+                                        <td class="name-cell">
+                                            <div style="display: flex; align-items: center; gap: 0.75rem;">
+                                                <?php if (!empty($product['product_image'])): ?>
+                                                    <img
+                                                        class="product-thumb"
+                                                        src="<?php echo app_url('images/products/' . rawurlencode($product['product_image'])); ?>"
+                                                        alt=""
+                                                        loading="lazy"
+                                                    >
+                                                <?php endif; ?>
+                                                <span style="font-weight: 600;"><?php echo htmlspecialchars($product['product_title']); ?></span>
+                                            </div>
                                         </td>
                                         <td><?php echo htmlspecialchars($product['cat_name']); ?></td>
                                         <td><?php echo htmlspecialchars($product['brand_name']); ?></td>
