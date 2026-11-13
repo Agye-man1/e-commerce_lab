@@ -83,3 +83,23 @@ function redirect($url) {
     header('Location: ' . $url);
     exit;
 }
+
+/**
+ * Client IP used to identify a guest cart.
+ * Uses REMOTE_ADDR only — forwarded headers can be spoofed by the client.
+ */
+function get_ip() {
+    $ip = $_SERVER['REMOTE_ADDR'] ?? '';
+    return filter_var($ip, FILTER_VALIDATE_IP) ? $ip : '0.0.0.0';
+}
+
+/**
+ * Returns the referring page if it is on this site, otherwise the fallback.
+ * Prevents redirecting users to external sites via a forged Referer header.
+ */
+function safe_referer($fallback) {
+    $ref = $_SERVER['HTTP_REFERER'] ?? '';
+    $refHost = parse_url($ref, PHP_URL_HOST);
+    $host = parse_url('http://' . ($_SERVER['HTTP_HOST'] ?? ''), PHP_URL_HOST);
+    return ($ref !== '' && $refHost !== null && $refHost === $host) ? $ref : $fallback;
+}

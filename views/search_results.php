@@ -13,83 +13,50 @@ $pageHeading = $userQuery !== '' ? 'Search results for "' . $userQuery . '"' : '
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($pageHeading); ?> | shoppn</title>
-    <link rel="stylesheet" href="<?php echo app_url('css/style.css?v=2.3'); ?>">
+    <link rel="stylesheet" href="<?php echo app_url('css/style.css?v=3.3'); ?>">
 </head>
 <body>
 
     <?php require_once __DIR__ . '/layout/header.php'; ?>
 
     <main class="site-main site-container">
+        <nav class="breadcrumb">
+            <a href="<?php echo app_url('index.php'); ?>">Home</a>
+            <span>/</span>
+            <span>Search</span>
+        </nav>
+
         <div class="shop-layout">
             <?php require_once __DIR__ . '/layout/sidebar.php'; ?>
 
             <section>
-                <div class="page-header" style="margin-bottom: 1.5rem;">
-                    <h1 class="page-title" style="margin-bottom: 0.25rem;">
+                <div class="listing-head">
+                    <h1>
                         <?php if ($userQuery !== ''): ?>
                             Results for &ldquo;<?php echo htmlspecialchars($userQuery); ?>&rdquo;
                         <?php else: ?>
-                            Search Catalog
+                            Search
                         <?php endif; ?>
                     </h1>
-                    <p class="page-description" style="margin: 0;">
-                        <?php if ($userQuery !== ''): ?>
-                            Found <?php echo count($products); ?> <?php echo count($products) === 1 ? 'product' : 'products'; ?> matching your search.
-                        <?php else: ?>
-                            Enter a keyword, product name, or category to find products.
-                        <?php endif; ?>
-                    </p>
+                    <?php if ($userQuery !== ''): ?>
+                        <span><?php echo count($products); ?> <?php echo count($products) === 1 ? 'product' : 'products'; ?></span>
+                    <?php endif; ?>
                 </div>
 
                 <?php if ($userQuery === '' || empty($products)): ?>
-                    <div class="card empty-state" style="padding: 4rem 2rem;">
-                        <div style="font-size: 2.5rem; margin-bottom: 1rem; color: var(--text-muted);">&#9671;</div>
-                        <h3 style="margin-bottom: 0.5rem;">No matching products</h3>
-                        <p style="max-width: 420px; margin: 0 auto 1.5rem; color: var(--text-secondary);">
-                            We couldn't find any products matching your query. Try checking your spelling or search by general keywords.
+                    <div class="card empty-state">
+                        <h3><?php echo $userQuery === '' ? 'What are you looking for?' : 'No matching products'; ?></h3>
+                        <p>
+                            <?php echo $userQuery === ''
+                                ? 'Type a product name, brand or keyword in the search bar above.'
+                                : 'We couldn\'t find anything for that search. Check the spelling or try a more general word.'; ?>
                         </p>
-                        <a href="<?php echo app_url('index.php'); ?>" class="btn btn-primary btn-sm">
-                            Browse All Products
-                        </a>
+                        <a href="<?php echo app_url('index.php'); ?>" class="btn btn-primary btn-sm">Browse All Products</a>
                     </div>
                 <?php else: ?>
-                    <div class="product-grid">
+                    <div class="pgrid pgrid-3">
                         <?php foreach ($products as $product): ?>
-                            <article class="card product-card">
-                                <div class="product-image-wrap">
-                                    <img
-                                        class="product-card-image"
-                                        src="<?php echo app_url('images/products/' . rawurlencode($product['product_image'] ?? '')); ?>"
-                                        alt="<?php echo htmlspecialchars($product['product_title']); ?>"
-                                        loading="lazy"
-                                    >
-                                </div>
-
-                                <div class="product-info">
-                                    <h3 class="product-title" title="<?php echo htmlspecialchars($product['product_title']); ?>">
-                                        <?php echo htmlspecialchars($product['product_title']); ?>
-                                    </h3>
-
-                                    <div class="product-price">
-                                        GH&#8373; <?php echo htmlspecialchars(number_format((float) $product['product_price'], 2)); ?>
-                                    </div>
-
-                                    <div class="product-actions">
-                                        <a 
-                                            class="btn btn-outline btn-sm" 
-                                            href="<?php echo app_url('views/single_product.php?pro_id=' . (int) $product['product_id']); ?>"
-                                        >
-                                            Details
-                                        </a>
-                                        <a 
-                                            class="btn btn-primary btn-sm" 
-                                            href="<?php echo app_url('actions/add_to_cart_action.php?add_cart=' . (int) $product['product_id']); ?>"
-                                        >
-                                            Add to Cart
-                                        </a>
-                                    </div>
-                                </div>
-                            </article>
+                            <?php include __DIR__ . '/layout/product_card.php'; ?>
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>

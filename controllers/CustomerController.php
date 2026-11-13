@@ -10,6 +10,10 @@ class CustomerController {
         $this->customerModel = new CustomerClass();
     }
 
+    public function getCustomerById($id) {
+        return $this->customerModel->getCustomerById((int) $id);
+    }
+
     // Register a new customer
     public function register($data) {
 

@@ -69,6 +69,22 @@ class CustomerClass extends Database {
         return $customer;
     }
 
+    public function getCustomerById($id) {
+
+        $sql = "SELECT customer_id, customer_name, customer_email, user_role
+                FROM customer WHERE customer_id = ?";
+
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+
+        $result = $stmt->get_result();
+        $customer = $result->fetch_assoc();
+        $stmt->close();
+
+        return $customer;
+    }
+
 }
     
     

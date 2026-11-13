@@ -100,6 +100,43 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // ── Cart: Remove Form ───────────────────────────────────────────────────
+    const removeForm = document.getElementById('remove-form');
+    if (removeForm) {
+        removeForm.addEventListener('submit', function (e) {
+            const checked = document.querySelectorAll('input[name="remove[]"][form="remove-form"]:checked');
+            if (checked.length === 0) {
+                e.preventDefault();
+                showError('cart-js-error', 'Tick at least one item to remove.');
+                return false;
+            }
+            clearError('cart-js-error');
+        });
+    }
+
+    // ── Cart: Update Quantity Form ──────────────────────────────────────────
+    const updateForm = document.getElementById('update-form');
+    if (updateForm) {
+        updateForm.addEventListener('submit', function (e) {
+            const qtyRegex = /^[1-9][0-9]?$/; // whole number 1–99
+            const inputs = document.querySelectorAll('input[name="qty[]"][form="update-form"]');
+            let valid = true;
+
+            inputs.forEach(function (input) {
+                const ok = qtyRegex.test(input.value.trim());
+                input.style.borderColor = ok ? '' : 'var(--error-text)';
+                if (!ok) valid = false;
+            });
+
+            if (!valid) {
+                e.preventDefault();
+                showError('cart-js-error', 'Each quantity must be a whole number from 1 to 99.');
+                return false;
+            }
+            clearError('cart-js-error');
+        });
+    }
+
     // ── Product Form Validation ─────────────────────────────────────────────
     const productForm = document.getElementById('product-form');
     if (productForm) {

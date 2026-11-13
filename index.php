@@ -24,7 +24,7 @@ if ($catId > 0) {
     }
 } else {
     $pageHeading = 'Featured Products';
-    $products = $controller->getFeaturedProducts(6);
+    $products = $controller->getFeaturedProducts(8);
 }
 
 $error = $_SESSION['error'] ?? '';

@@ -210,7 +210,10 @@ class ProductClass extends Database {
     public function getFeaturedProducts($limit = 6) {
 
         $limit = (int) $limit;
-        $sql = "SELECT * FROM products ORDER BY RAND() LIMIT ?";
+        $sql = "SELECT products.*, brands.brand_name
+                FROM products
+                LEFT JOIN brands ON products.product_brand = brands.brand_id
+                ORDER BY RAND() LIMIT ?";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $limit);
@@ -225,7 +228,10 @@ class ProductClass extends Database {
 
     public function getProductsByCategory($cat_id) {
 
-        $sql = "SELECT * FROM products WHERE product_cat = ?";
+        $sql = "SELECT products.*, brands.brand_name
+                FROM products
+                LEFT JOIN brands ON products.product_brand = brands.brand_id
+                WHERE products.product_cat = ?";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $cat_id);
@@ -240,7 +246,10 @@ class ProductClass extends Database {
 
     public function getProductsByBrand($brand_id) {
 
-        $sql = "SELECT * FROM products WHERE product_brand = ?";
+        $sql = "SELECT products.*, brands.brand_name
+                FROM products
+                LEFT JOIN brands ON products.product_brand = brands.brand_id
+                WHERE products.product_brand = ?";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("i", $brand_id);
@@ -256,8 +265,10 @@ class ProductClass extends Database {
     public function searchProducts($query) {
 
         $term = '%' . $query . '%';
-        $sql = "SELECT * FROM products
-                WHERE product_title LIKE ? OR product_keywords LIKE ?";
+        $sql = "SELECT products.*, brands.brand_name
+                FROM products
+                LEFT JOIN brands ON products.product_brand = brands.brand_id
+                WHERE products.product_title LIKE ? OR products.product_keywords LIKE ?";
 
         $stmt = $this->conn->prepare($sql);
         $stmt->bind_param("ss", $term, $term);
