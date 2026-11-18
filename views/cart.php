@@ -18,7 +18,7 @@ foreach ($items as $item) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart | shoppn</title>
-    <link rel="stylesheet" href="<?php echo app_url('css/style.css?v=3.3'); ?>">
+    <link rel="stylesheet" href="<?php echo app_url('css/style.css?v=3.7'); ?>">
 </head>
 <body>
 
@@ -83,9 +83,13 @@ foreach ($items as $item) {
                                         </td>
                                         <td data-label="Quantity">
                                             <input type="hidden" name="update[]" value="<?php echo $pid; ?>" form="update-form">
-                                            <input class="qty-input" type="number" name="qty[]" min="1" max="99" step="1"
-                                                   value="<?php echo (int) $item['qty']; ?>" form="update-form"
-                                                   aria-label="Quantity">
+                                            <div class="qty-stepper" data-autosubmit="update-form">
+                                                <button type="button" class="qty-step" data-step="-1" aria-label="Decrease quantity">&minus;</button>
+                                                <input class="qty-input" type="number" name="qty[]" min="1" max="99" step="1"
+                                                       value="<?php echo (int) $item['qty']; ?>" form="update-form"
+                                                       inputmode="numeric" aria-label="Quantity">
+                                                <button type="button" class="qty-step" data-step="1" aria-label="Increase quantity">+</button>
+                                            </div>
                                         </td>
                                         <td data-label="Unit Price">GH&#8373; <?php echo number_format((float) $item['product_price'], 2); ?></td>
                                         <td data-label="Total" class="cart-line-total">GH&#8373; <?php echo number_format((int) $item['qty'] * (float) $item['product_price'], 2); ?></td>

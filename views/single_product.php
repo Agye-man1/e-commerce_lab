@@ -25,7 +25,7 @@ $tags = array_filter(array_map('trim', explode(',', $product['product_keywords']
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($product['product_title']); ?> | shoppn</title>
-    <link rel="stylesheet" href="<?php echo app_url('css/style.css?v=3.3'); ?>">
+    <link rel="stylesheet" href="<?php echo app_url('css/style.css?v=3.7'); ?>">
 </head>
 <body>
 
@@ -54,14 +54,25 @@ $tags = array_filter(array_map('trim', explode(',', $product['product_keywords']
                 <h1 class="pdp-title"><?php echo htmlspecialchars($product['product_title']); ?></h1>
                 <div class="pdp-price">GH&#8373; <?php echo number_format((float) $product['product_price'], 2); ?></div>
 
-                <div class="pdp-actions">
-                    <a class="btn btn-accent btn-lg btn-block"
-                       href="<?php echo app_url('actions/add_to_cart_action.php?add_cart=' . (int) $product['product_id']); ?>">
+                <form id="add-cart-form" class="pdp-actions" method="GET" action="<?php echo app_url('actions/add_to_cart_action.php'); ?>">
+                    <input type="hidden" name="add_cart" value="<?php echo (int) $product['product_id']; ?>">
+
+                    <div class="pdp-qty-row">
+                        <label for="pdp-qty">Quantity</label>
+                        <div class="qty-stepper">
+                            <button type="button" class="qty-step" data-step="-1" aria-label="Decrease quantity">&minus;</button>
+                            <input id="pdp-qty" class="qty-input" type="number" name="qty" value="1" min="1" max="99" step="1" inputmode="numeric">
+                            <button type="button" class="qty-step" data-step="1" aria-label="Increase quantity">+</button>
+                        </div>
+                    </div>
+                    <div id="add-cart-js-error" class="alert alert-error" style="display: none;"></div>
+
+                    <button type="submit" class="btn btn-accent btn-lg btn-block">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6h15l-1.5 9h-12z"/><path d="M6 6 5 3H2"/><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/></svg>
                         Add to Cart
-                    </a>
+                    </button>
                     <a class="btn btn-outline btn-lg btn-block" href="<?php echo app_url('views/cart.php'); ?>">View Cart</a>
-                </div>
+                </form>
 
                 <ul class="pdp-perks">
                     <li>
@@ -121,5 +132,6 @@ $tags = array_filter(array_map('trim', explode(',', $product['product_keywords']
 
     <?php require_once __DIR__ . '/layout/footer.php'; ?>
 
+    <script src="<?php echo app_url('js/validate.js'); ?>"></script>
 </body>
 </html>

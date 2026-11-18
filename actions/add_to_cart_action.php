@@ -8,6 +8,16 @@ $back = safe_referer(app_url('index.php'));
 
 $productId = (int) ($_GET['add_cart'] ?? 0);
 
+// Optional quantity from the product page picker; listing links send none (defaults to 1)
+$qty = 1;
+if (isset($_GET['qty'])) {
+    $qty = filter_var($_GET['qty'], FILTER_VALIDATE_INT, ['options' => ['min_range' => 1, 'max_range' => 99]]);
+    if ($qty === false) {
+        $_SESSION['error'] = 'Quantity must be a whole number from 1 to 99.';
+        redirect($back);
+    }
+}
+
 if ($productId <= 0) {
     $_SESSION['error'] = 'Invalid product.';
     redirect($back);
@@ -40,10 +50,13 @@ if (is_logged_in()) {
     }
 }
 
-if ($cartController->addToCart($productId, 1, $ip, $customerId)) {
-    $_SESSION['success'] = !empty($staleSession)
-        ? 'Item added to your cart. Your login session had expired — please log in again.'
-        : 'Item added to your cart.';
+if ($cartController->addToCart($productId, $qty, $ip, $customerId)) {
+    $addedMsg = $qty === 1 ? 'Item added to your cart.' : $qty . ' items added to your cart.';
+    // Shown inside the slide-out cart drawer, which opens on the page we return to
+    $_SESSION['cart_drawer'] = $addedMsg;
+    if (!empty($staleSession)) {
+        $_SESSION['success'] = 'Your login session had expired — please log in again.';
+    }
 } else {
     $_SESSION['error'] = 'Could not add the item to your cart. Please try again.';
 }

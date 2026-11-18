@@ -13,7 +13,7 @@ $pageHeading = $userQuery !== '' ? 'Search results for "' . $userQuery . '"' : '
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($pageHeading); ?> | shoppn</title>
-    <link rel="stylesheet" href="<?php echo app_url('css/style.css?v=3.3'); ?>">
+    <link rel="stylesheet" href="<?php echo app_url('css/style.css?v=3.7'); ?>">
 </head>
 <body>
 

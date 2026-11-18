@@ -100,6 +100,20 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // ── Product page: Add to Cart quantity ──────────────────────────────────
+    const addCartForm = document.getElementById('add-cart-form');
+    if (addCartForm) {
+        addCartForm.addEventListener('submit', function (e) {
+            const qtyInput = document.getElementById('pdp-qty');
+            if (!/^[1-9][0-9]?$/.test(qtyInput.value.trim())) {
+                e.preventDefault();
+                showError('add-cart-js-error', 'Quantity must be a whole number from 1 to 99.');
+                return false;
+            }
+            clearError('add-cart-js-error');
+        });
+    }
+
     // ── Cart: Remove Form ───────────────────────────────────────────────────
     const removeForm = document.getElementById('remove-form');
     if (removeForm) {

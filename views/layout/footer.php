@@ -58,3 +58,5 @@ $footerCategories = $navCategories ?? [];
         </div>
     </div>
 </footer>
+
+<script src="<?php echo app_url('js/cart.js?v=3.5'); ?>"></script>
