@@ -2,4 +2,6 @@
 **/.DS_Store
 error/error.log
 core/db_cred.php
+core/paystack_config.php
+core/mail_config.php
 reflection*.md

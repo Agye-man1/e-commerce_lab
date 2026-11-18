@@ -2,14 +2,24 @@
 require_once __DIR__ . '/../core/core.php';
 require_once __DIR__ . '/../controllers/CustomerController.php';
 
-$error = '';
+// Message from require_login() or another page, e.g. "Please log in to continue."
+$error = $_SESSION['error'] ?? '';
+$notice = $_SESSION['success'] ?? '';
+unset($_SESSION['error'], $_SESSION['success']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $controller = new CustomerController();
     $result = $controller->login($_POST);
 
     if ($result['success']) {
-        header('Location: ' . app_url('index.php'));
+        // Return to the page that asked for login (e.g. checkout), if it was one of ours
+        $next = $_SESSION['after_login'] ?? '';
+        unset($_SESSION['after_login']);
+        $ourPath = parse_url(app_url(''), PHP_URL_PATH);
+        if ($next === '' || strpos($next, $ourPath) !== 0 || strpos($next, '//') !== false) {
+            $next = app_url('index.php');
+        }
+        header('Location: ' . $next);
         exit;
     } else {
         $error = $result['error'];
@@ -22,16 +32,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign In — shoppn</title>
-    <link rel="stylesheet" href="<?php echo app_url('css/style.css?v=3.7'); ?>">
+    <link rel="stylesheet" href="<?php echo app_url('css/style.css?v=4.0'); ?>">
 </head>
 <body>
 
     <div class="auth-wrapper">
         <div class="auth-card">
 
+            <a href="<?php echo app_url('index.php'); ?>" class="auth-back">&larr; Back to shop</a>
+
             <div class="auth-header">
                 <a href="<?php echo app_url('index.php'); ?>" class="brand-logo" style="font-size: 1.5rem; margin-bottom: 1rem;">
-                    shoppn<span>.</span>
+                    <span>shoppn<span class="accent">.</span></span>
                 </a>
                 <h1>Welcome back</h1>
                 <p>Enter your email and password to access your account</p>
@@ -40,6 +52,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php if ($error !== ''): ?>
                 <div class="alert alert-error">
                     <span><?php echo htmlspecialchars($error); ?></span>
+                </div>
+            <?php endif; ?>
+
+            <?php if ($notice !== ''): ?>
+                <div class="alert alert-success">
+                    <span><?php echo htmlspecialchars($notice); ?></span>
                 </div>
             <?php endif; ?>
 

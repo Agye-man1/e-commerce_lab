@@ -128,6 +128,7 @@ session_regenerate_id(true);
 
 $_SESSION['customer_id'] = $customer['customer_id'];
 $_SESSION['customer_name'] = $customer['customer_name'];
+$_SESSION['customer_email'] = $customer['customer_email'];
 $_SESSION['user_role'] = $customer['user_role'];
 
 return [

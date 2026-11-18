@@ -22,16 +22,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Account — shoppn</title>
-    <link rel="stylesheet" href="<?php echo app_url('css/style.css?v=3.7'); ?>">
+    <link rel="stylesheet" href="<?php echo app_url('css/style.css?v=4.0'); ?>">
 </head>
 <body>
 
     <div class="auth-wrapper">
         <div class="auth-card" style="max-width: 500px;">
 
+            <a href="<?php echo app_url('index.php'); ?>" class="auth-back">&larr; Back to shop</a>
+
             <div class="auth-header">
                 <a href="<?php echo app_url('index.php'); ?>" class="brand-logo" style="font-size: 1.5rem; margin-bottom: 1rem;">
-                    shoppn<span>.</span>
+                    <span>shoppn<span class="accent">.</span></span>
                 </a>
                 <h1>Create an account</h1>
                 <p>Join shoppn to create your account</p>

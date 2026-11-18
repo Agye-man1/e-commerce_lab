@@ -105,9 +105,9 @@ $isHomePage = $navActiveCat === 0 && !isset($_GET['brand'])
 
     <div class="cart-summary-bar">
         <div class="site-container">
-            Shopping Cart &mdash; Total Items: <strong><?php echo (int) $cartCount; ?></strong>
+            <span>Shopping Cart &mdash; Total Items: <strong><?php echo (int) $cartCount; ?></strong></span>
             <span class="sep">|</span>
-            Total Price: <strong>GH&#8373; <?php echo number_format((float) $cartTotal, 2); ?></strong>
+            <span>Total Price: <strong>GH&#8373; <?php echo number_format((float) $cartTotal, 2); ?></strong></span>
             <span class="sep">|</span>
             <a href="<?php echo app_url('views/cart.php'); ?>">Go to Cart</a>
         </div>

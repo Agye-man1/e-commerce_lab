@@ -2075,3 +2075,104 @@ body.drawer-lock { overflow: hidden; }
 .drawer-continue { text-decoration: underline; }
 .cart-table td[data-label="Unit Price"], .cart-table .cart-line-total { white-space: nowrap; }
 .cart-thumb, .drawer-thumb img { mix-blend-mode: multiply; }
+
+/* ── Checkout / invoice ── */
+.pay-email { word-break: break-all; font-weight: 500; }
+#pay-button:disabled { opacity: 0.5; cursor: not-allowed; }
+.invoice { max-width: 860px; margin: 0 auto; padding: 2rem; background: #fff; border: 1px solid var(--border-subtle); }
+.invoice-head { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem; }
+.invoice-head h1 { font-size: 1.4rem; text-transform: uppercase; letter-spacing: 0.06em; margin: 0 0 0.25rem; }
+.invoice-head p { margin: 0; color: var(--text-secondary); }
+.invoice-check {
+    flex: none;
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    background: #000;
+    color: #fff;
+}
+.invoice-failed .invoice-check { background: #b91c1c; }
+.invoice-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+    background: #f2f2f2;
+    padding: 1rem 1.25rem;
+    margin: 0 0 1.5rem;
+}
+.invoice-meta dt { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+.invoice-meta dd { margin: 0.2rem 0 0; font-weight: 700; }
+.invoice-status { color: #15803d; }
+.invoice-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-top: 2px solid #000;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    font-weight: 600;
+}
+.invoice-total strong { font-size: 1.5rem; }
+.invoice-note { color: var(--text-secondary); margin: 0 0 1.5rem; }
+.invoice-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; justify-content: flex-end; margin-top: 1.75rem; }
+@media (max-width: 600px) {
+    .invoice { padding: 1.25rem; }
+    .invoice-actions .btn { flex: 1; }
+}
+@media print {
+    .site-header, .site-footer, .flash-wrap, .invoice-actions, .cart-drawer, .drawer-overlay { display: none !important; }
+    .invoice { border: 0; padding: 0; max-width: none; }
+}
+/* Checkout + invoice tables have no checkbox column: first column is the product */
+.summary-table th:first-child,
+.summary-table td:first-child { width: auto; text-align: left; }
+@media (max-width: 768px) {
+    .summary-table td:first-child { position: static; }
+    .summary-table tr { padding-left: 0.9rem; }
+}
+
+/* ── UI audit fixes ── */
+/* Auth pages: link back to the store */
+.auth-back {
+    display: inline-block;
+    margin-bottom: 1.25rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #000;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* Admin: grid columns may shrink so wide tables scroll instead of pushing the page sideways */
+.admin-grid > * { min-width: 0; }
+.admin-grid .table-wrapper { overflow-x: auto; }
+.admin-subnav { overflow-x: auto; scrollbar-width: none; }
+.admin-subnav::-webkit-scrollbar { display: none; }
+.admin-tab { white-space: nowrap; }
+thead { background-color: #f2f2f2; }
+.admin-grid td:nth-last-child(2) { white-space: nowrap; }
+
+@media (max-width: 640px) {
+    /* Category nav: fit all categories on a phone (still scrolls if there are more) */
+    .catnav-inner { gap: 0; }
+    .catnav a { padding: 0.8rem 0.6rem; letter-spacing: 0.06em; font-size: 0.72rem; }
+
+    /* Cart summary bar: tidy two-line layout without stray separators */
+    .cart-summary-bar .site-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        column-gap: 0.75rem;
+        row-gap: 0.15rem;
+        font-size: 0.72rem;
+    }
+    .cart-summary-bar .sep { display: none; }
+
+    /* Invoice details in two columns */
+    .invoice-meta { grid-template-columns: 1fr 1fr; }
+    .invoice-head { align-items: flex-start; }
+    .invoice-head h1 { font-size: 1.15rem; }
+}

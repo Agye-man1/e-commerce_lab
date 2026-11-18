@@ -66,6 +66,8 @@ function is_admin() {
 function require_login() {
     if (!is_logged_in()) {
         $_SESSION['error'] = 'Please log in to continue.';
+        // Remember the page so login can send the customer back to it
+        $_SESSION['after_login'] = $_SERVER['REQUEST_URI'] ?? '';
         header('Location: ' . app_url('views/login.php'));
         exit;
     }

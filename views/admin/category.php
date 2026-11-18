@@ -29,7 +29,7 @@ $formAction = $editCategory
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Categories — shoppn</title>
-    <link rel="stylesheet" href="<?php echo app_url('css/style.css?v=3.7'); ?>">
+    <link rel="stylesheet" href="<?php echo app_url('css/style.css?v=4.0'); ?>">
 </head>
 <body>
 
