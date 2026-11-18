@@ -36,7 +36,7 @@ $isHomePage = $navActiveCat === 0 && !isset($_GET['brand'])
 <header class="site-header">
     <div class="site-container mainbar">
         <a href="<?php echo app_url('index.php'); ?>" class="brand-logo" aria-label="shoppn home">
-            <span class="brand-icon">S</span>
+            <?php include __DIR__ . '/logo_mark.php'; ?>
             <span>shoppn<span class="accent">.</span></span>
         </a>
 

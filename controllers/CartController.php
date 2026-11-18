@@ -108,6 +108,8 @@ class CartController {
 
             $mail->setFrom(MAIL_FROM, MAIL_FROM_NAME);
             $mail->addAddress($email, $name);
+            // Logo shown in the email header (referenced as cid:shoppnlogo in the template)
+            $mail->addEmbeddedImage(__DIR__ . '/../images/brand/logo-email.png', 'shoppnlogo', 'shoppn-logo.png');
 
             $mail->isHTML(true);
             $mail->Subject = $subject;

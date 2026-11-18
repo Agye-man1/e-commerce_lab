@@ -29,7 +29,10 @@ $formAction = $editProduct
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Products — shoppn</title>
-    <link rel="stylesheet" href="<?php echo app_url('css/style.css?v=4.0'); ?>">
+    <link rel="stylesheet" href="<?php echo app_url('css/style.css?v=4.2'); ?>">
+    <link rel="icon" type="image/svg+xml" href="<?php echo app_url('images/brand/favicon.svg'); ?>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo app_url('images/brand/favicon-32.png'); ?>">
+    <link rel="apple-touch-icon" href="<?php echo app_url('images/brand/apple-touch-icon.png'); ?>">
 </head>
 <body>
 

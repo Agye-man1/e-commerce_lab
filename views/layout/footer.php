@@ -6,7 +6,7 @@ $footerCategories = $navCategories ?? [];
     <div class="site-container footer-grid">
         <div class="footer-col footer-about">
             <a href="<?php echo app_url('index.php'); ?>" class="brand-logo">
-                <span class="brand-icon">S</span>
+                <?php include __DIR__ . '/logo_mark.php'; ?>
                 <span>shoppn<span class="accent">.</span></span>
             </a>
             <p>Sneakers, apparel and everyday essentials from the brands you love, delivered to your door.</p>

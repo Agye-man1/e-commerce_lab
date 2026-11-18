@@ -2176,3 +2176,13 @@ thead { background-color: #f2f2f2; }
     .invoice-head { align-items: flex-start; }
     .invoice-head h1 { font-size: 1.15rem; }
 }
+
+/* ── Logo mark (cart with an S) ── */
+.brand-logo { gap: 0.5rem; }
+.brand-mark { width: 1.45em; height: 1.45em; flex: none; display: block; }
+.site-footer .brand-mark { width: 1.35em; height: 1.35em; }
+@media (max-width: 640px) {
+    .site-header .brand-logo { font-size: 1.4rem; gap: 0.35rem; }
+    .site-header .brand-mark { width: 1.3em; height: 1.3em; }
+    .mainbar-label span { white-space: nowrap; }
+}
